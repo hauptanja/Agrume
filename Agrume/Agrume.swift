@@ -40,7 +40,10 @@ public final class Agrume: UIViewController {
   }
   /// Default tap behaviour is to dismiss the view if zoomed out
   public var tapBehavior: TapBehavior = .dismissIfZoomedOut
-
+  
+  /// Option to add an additional button to navigation bar. Should be set before calling .show(from:)
+  public var additionalNavigationButton: UIBarButtonItem?
+  
   /// Initialize with a single image
   ///
   /// - Parameters:
@@ -259,7 +262,7 @@ public final class Agrume: UIViewController {
   
   private func addOverlayView() {
     if case .withButton(let button) = dismissal {
-      let overlayView = AgrumeOverlayView(closeButton: button)
+      let overlayView = AgrumeOverlayView(closeButton: button, additionalButton: additionalNavigationButton)
       overlayView.delegate = self
       overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       overlayView.frame = view.bounds

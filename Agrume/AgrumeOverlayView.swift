@@ -26,7 +26,7 @@ final class AgrumeOverlayView: UIView {
   private lazy var defaultCloseButton = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Close image view"),
                                                         style: .plain, target: self, action: #selector(close))
   
-  init(closeButton: UIBarButtonItem?) {
+  init(closeButton: UIBarButtonItem?, additionalButton: UIBarButtonItem? = nil) {
     super.init(frame: .zero)
 
     addSubview(navigationBar)
@@ -37,6 +37,11 @@ final class AgrumeOverlayView: UIView {
       navigationItem.leftBarButtonItem = closeButton
     } else {
       navigationItem.leftBarButtonItem = defaultCloseButton
+    }
+    if let additionalButton = additionalButton {
+      navigationItem.rightBarButtonItem = additionalButton
+    } else {
+      navigationItem.rightBarButtonItem = nil
     }
     
     NSLayoutConstraint.activate([
