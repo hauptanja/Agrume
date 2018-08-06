@@ -43,6 +43,7 @@ public final class Agrume: UIViewController {
   
   /// Option to add an additional button to navigation bar. Should be set before calling .show(from:)
   public var additionalNavigationButton: UIBarButtonItem?
+  public var additionalNavigationButtonActions: ((_ imageURL: URL) -> Void)?
   
   /// Initialize with a single image
   ///
@@ -413,9 +414,13 @@ extension Agrume: AgrumeCellDelegate {
 }
 
 extension Agrume: AgrumeOverlayViewDelegate {
-
   func agrumeOverlayViewWantsToClose(_ view: AgrumeOverlayView) {
     dismiss()
   }
-
+  
+  func agrumeOverlayViewWantsToPerformAdditionalButtonActions(_ view: AgrumeOverlayView) {
+    guard let visibleCellPath = collectionView.indexPathsForVisibleItems.first else { return }
+    guard let visibleImageURL = images[visibleCellPath.row].url else { return }
+    additionalNavigationButtonActions?(visibleImageURL)
+  }
 }

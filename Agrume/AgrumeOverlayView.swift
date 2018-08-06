@@ -6,6 +6,7 @@ import UIKit
 
 protocol AgrumeOverlayViewDelegate: AnyObject {
   func agrumeOverlayViewWantsToClose(_ view: AgrumeOverlayView)
+  func agrumeOverlayViewWantsToPerformAdditionalButtonActions(_ view: AgrumeOverlayView)
 }
 
 final class AgrumeOverlayView: UIView {
@@ -39,6 +40,8 @@ final class AgrumeOverlayView: UIView {
       navigationItem.leftBarButtonItem = defaultCloseButton
     }
     if let additionalButton = additionalButton {
+      additionalButton.target = self
+      additionalButton.action = #selector(additionalButtonAction)
       navigationItem.rightBarButtonItem = additionalButton
     } else {
       navigationItem.rightBarButtonItem = nil
@@ -66,5 +69,8 @@ final class AgrumeOverlayView: UIView {
   private func close() {
     delegate?.agrumeOverlayViewWantsToClose(self)
   }
-  
+  @objc
+  private func additionalButtonAction() {
+    delegate?.agrumeOverlayViewWantsToPerformAdditionalButtonActions(self)
+  }
 }
