@@ -346,11 +346,11 @@ extension Agrume: UICollectionViewDataSource {
       cell.hasPhysics = false
     }
 
-    spinner.alpha = 1
+//    spinner.alpha = 1
     dataSource?.image(forIndex: indexPath.item) { [weak self] image in
       DispatchQueue.main.async {
         cell.image = image
-        self?.spinner.alpha = 0
+//        self?.spinner.alpha = 0
       }
     }
     // Only allow panning if horizontal swiping fails. Horizontal swiping is only active for zoomed in images
